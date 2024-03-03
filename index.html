@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="">
+	<script src="https://kit.fontawesome.com/19f13f9ee2.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<div class="admin admin-header hidden" id="admin-header">
+		<i class="fa-regular fa-pen-to-square"></i>
+			<p>Mode édition</p>
+	</div>
+<header>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<nav>
+		<ul>
+			<li><a href="#portfolio" class="menu">projets</a></li>
+            <li><a href="#contact" class="menu">contact</a></li>
+			<li><a id="menu-login" href="views/login.html" class="menu">login</a></li>
+			<li><a id="menu-logout" href="index.html" class="menu hidden">logout</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>       
+	<section id="introduction">
+		<figure>
+			<img src="./assets/images/sophie-bluel.png" alt="">
+		</figure>
+		<article>
+			<h2>Designer d'espace</h2>
+			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+		</article>
+	</section>
+	<section id="portfolio">
+		<div class="mes-projets-title">
+			<h2>Mes Projets</h2>
+			<a href="#modal1" id="js-modal1" class="admin admin-link color-black hidden">
+				<i class="fa-regular fa-pen-to-square"></i>
+				Modifier
+			</a>
+		</div>
+		<aside id="modal1" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="modal1-title">
+			<div class="modal-wrapper">
+				<div class="modal-close">
+					<button class="close">
+						<i class="fa-solid fa-xmark fa-xl"></i>
+					</button>
+				</div>
+				<h2 class="modal1-title">Galerie photo</h2>
+				<div id="modal-gallery">
+					<div class="modal-images">
+						<img src="http://localhost:5678/images/structures-thermopolis1651287380258.png" alt="Structures Thermopolis">
+						<i class="fa-solid fa-trash-can fa-xs"></i>
+					</div>
+				</div>
+				<div class="add-image-container">
+					<a href="#modal2" id="add-image">
+						<button class="add-image">Ajouter une photo</button>
+					</a>
+				</div>
+			</div>
+		</aside>
+
+		<aside id="modal2" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="modal2-title">
+			<div class="modal-wrapper">
+				<div class="modal2-close">
+					<a href="#modal1" id="modal-arrow-left1">
+						<button class="back">
+							<i class="fa-solid fa-arrow-left fa-xl"></i>
+						</button>
+					</a>
+					<button class="close">
+						<i class="fa-solid fa-xmark fa-xl"></i>
+					</button>
+				</div>
+				<h2 class="modal2-title">Ajout photo</h2>
+				<form id="modal-form">
+					<div id="upload-image">
+						<div class="upload-image" id="hidden-form">
+							<div class="form-logo">
+								<svg xmlns="http://www.w3.org/2000/svg" height="60" width="60" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#cbd6dc" d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
+							</div>
+							<label for="file" class="button">+ Ajouter photo</label>
+							<input type="file" name="file" id="file" accept=".jpg, .png" required>
+							<p>jpg, png : 4Mo max</p>
+						</div>
+						<div id="image-preview">
+			
+						</div>
+					</div>
+					<label for="title" class="form-title">Titre</label>
+					<input type="text" id="title" name="title" class="form-input" required>
+			
+					<label for="category" class="form-category">Catégorie</label>
+					<select id="category" name="category" class="form-select" required>
+						<option value=""></option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hotels & restaurants</option>
+					</select>
+					<div class="form-decoration">
+						<button type="submit" class="form-submit">Valider</button>
+					</div>
+			 	</form> 
+			</div>
+		</aside>
+
+		<div class="categories" id="categories">
+			<button id="button_category_0" class="category-button">Tous</button>
+			<button id="button_category_1" class="category-button">Objets</button>
+			<button id="button_category_2" class="category-button">Appartements</button>
+			<button id="button_category_3" class="category-button">Hôtels & restaurants</button>
+		</div>
+
+		<div class="gallery" id="gallery">
+		</div>
+	</section>
+	<section id="contact">
+		<h2>Contact</h2>
+		<p>Vous avez un projet ? Discutons-en !</p>
+		<form method="post">
+			<label for="name">Nom</label>
+			<input type="text" name="name" id="name">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email">
+			<label for="message">Message</label>
+			<textarea name="message" id="message" cols="30" rows="10"></textarea>
+			<input type="submit" value="Envoyer">
+		</form>
+	</section>
+</main>
+
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+<script src="index.js"></script>
+</body>
+</html>
