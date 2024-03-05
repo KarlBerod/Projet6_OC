@@ -13,13 +13,12 @@ function API_login(event){
     .then(data => {
         console.log('Succès:', data);
         if (data.userId==1) {
-            localStorage.setItem('admin', '1');
             localStorage.setItem('token', data.token);
             window.location.href = '../index.html';
         } 
         else {
             alert("combinaison login/mot de passe incorrecte");
-            localStorage.setItem('admin', '0');
+            localStorage.setItem('token', '');
         }
     })
     .catch((error) => {

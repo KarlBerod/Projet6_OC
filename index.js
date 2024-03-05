@@ -37,27 +37,43 @@ function display(data, asked_category){
     });
 }
 
-const category_0 = document.getElementById('button_category_0');
-const category_1 = document.getElementById('button_category_1');
-const category_2 = document.getElementById('button_category_2');
-const category_3 = document.getElementById('button_category_3');
-
-// option to filter categories on button click
-category_0.addEventListener('click', () => {
+document.getElementById('button_category_0').addEventListener('click', () => {
     display(data, 0);
 });
 
-category_1.addEventListener('click', () => {
-    display(data, 1);
-});
+function displayCategoryButtons(){
+    fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(fetchedData => {
+            categoryData = fetchedData;
+            const container = document.getElementById('categories');
+            categoryData.forEach(item => {
+                const button = document.createElement("button");
+                button.innerHTML = item.name;
+                button.className="category-button";
+                button.id=`button_category_${item.id}`
+                button.addEventListener('click', () => {
+                    display(data, item.id)
+                })
+                container.appendChild(button);
+            });
+        })
+}
 
-category_2.addEventListener('click', () => {
-    display(data, 2);
-});
-
-category_3.addEventListener('click', () => {
-    display(data, 3);
-});
+function displayCategoryForm(){
+    fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(fetchedData => {
+            categoryData = fetchedData;
+            const container = document.getElementById('category');
+            categoryData.forEach(item => {
+                const option= document.createElement("option");
+                option.innerHTML= item.name;
+                option.value=item.id;
+                container.appendChild(option);
+            });
+        })
+}
 
 //function triggering on the click on "modifier" button to display its gallery in the modal window
 function displayModal(data){
@@ -98,6 +114,12 @@ function deleteItem(Id){
     .then(response => {
         if(response.ok){
             console.log('Item supprimé');
+            fetch("http://localhost:5678/api/works")
+                .then(response => response.json())
+                .then(fetchedData => {
+                    displayModal(fetchedData);
+                    display(fetchedData, 0)
+            })
         } 
         else {
             console.error('Erreur lors de la suppression:', response.statusText);
@@ -128,6 +150,13 @@ async function addItem(event){
         },
         body: formData
     });
+    closeModal(event);
+    fetch("http://localhost:5678/api/works")
+        .then(response => response.json())
+        .then(fetchedData => {
+            display(fetchedData, 0);
+            displayModal(fetchedData)
+    })
 };
 
 
@@ -158,12 +187,11 @@ document.getElementById('file').addEventListener('change', function(event){
 
 document.getElementById('modal-form').addEventListener('submit', addItem);
 
-let admin = localStorage.getItem('admin');
 let token = localStorage.getItem('token');
 
 //adds and remove classes from the html to hide and add content related to the administrator
 function adminLoad(){
-    if(admin==1){
+    if(token){
         document.getElementById("admin-header").classList.remove("hidden");
         document.getElementById("js-modal1").classList.remove("hidden");
         document.getElementById("categories").classList.add("hidden");
@@ -178,7 +206,7 @@ function adminLoad(){
 
 //adds and remove classes from the html to hide and add content related to the administrator
 function logout(){
-    localStorage.setItem('admin', '0');
+    localStorage.setItem('token', '');
     document.getElementById("admin-header").classList.add("hidden");
     document.getElementById("js-modal1").classList.add("hidden");
     document.getElementById("categories").classList.remove("hidden");
@@ -193,6 +221,8 @@ function logout(){
 document.getElementById("menu-logout").addEventListener("click", logout)
 
 document.addEventListener('DOMContentLoaded', adminLoad)
+document.addEventListener('DOMContentLoaded', displayCategoryForm)
+document.addEventListener('DOMContentLoaded', displayCategoryButtons)
 
 let modal=null
 
