@@ -143,13 +143,33 @@ async function addItem(event){
     let formCategoryId = document.getElementById('category').value;
     formData.append('category', formCategoryId);
     
-    let response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: { 
-            "Authorization": `Bearer ${token}`
-        },
-        body: formData
-    });
+    try{
+        let response = await fetch("http://localhost:5678/api/works",{
+            method: "POST",
+            headers:{ 
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        });
+        if (response.ok){
+            console.log('Item ajouté');
+            //resetting the form
+            document.getElementById('modal-form').reset();
+            formSubmitButton();
+            document.getElementById('hidden-form').classList.remove("hidden");
+            var imagePreview = document.getElementById('image-preview');
+            while (imagePreview.firstChild){
+                imagePreview.removeChild(imagePreview.firstChild);
+            }
+        }
+        else{
+            alert('Une erreur est survenue lors de l\'ajout de l\'item');
+        }
+    }
+    catch(error){
+        console.error('Erreur lors de la requête:', error);
+        alert('Une erreur est survenue lors de l\'envoi de la requête');
+    }
     closeModal(event);
     fetch("http://localhost:5678/api/works")
         .then(response => response.json())
@@ -159,6 +179,34 @@ async function addItem(event){
     })
 };
 
+//change the color of the submit if all conditions are met
+function formSubmitButton(){
+    var formTitle = document.getElementById('title').value;
+    var formImageUrl = document.getElementById('file').value;
+    var formCategoryId = document.getElementById('category').value;
+    var button = document.getElementById('modal-submit');
+
+    if(formTitle !== "" && formImageUrl !== "" && formCategoryId !== ""){
+        button.classList.remove('invalid-form-submit');
+        button.classList.add('valid-form-submit');
+    }
+    else{
+        button.classList.remove('valid-form-submit');
+        button.classList.add('invalid-form-submit');
+    }
+}
+document.getElementById('modal-form').addEventListener('input', formSubmitButton);
+
+//displays an alert if the submit button is pressed while the form isn't filled
+document.getElementById('modal-submit').addEventListener('click', function(event){
+    var formTitle = document.getElementById('title').value;
+    var formImageUrl = document.getElementById('file').value;
+    var formCategoryId = document.getElementById('category').value;
+    if (!formTitle || !formImageUrl || !formCategoryId){
+      event.preventDefault();
+      alert('Veuillez renseigner tout les champs avant de soumettre le formulaire');
+    }
+});
 
 //Displays the preview of the image in the form
 document.getElementById('file').addEventListener('change', function(event){

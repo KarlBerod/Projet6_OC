@@ -279,8 +279,17 @@ li:hover {
 	border: none;
 }
 
-.form-submit{
+.invalid-form-submit{
 	background-color: #A7A7A7;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 60px;
+	padding: 10px 100px;
+	border: none;
+}
+
+.valid-form-submit{
+	background-color: #1D6154;
 	color: #FFFFFF;
 	font-size: 14px;
 	border-radius: 60px;
